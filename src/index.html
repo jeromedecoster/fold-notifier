@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>fold-notifier</title>
+	<link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+
+  <div class="card">
+    <input offset type="number" min="-200" max="200"  step="100" value="200"/>
+    <input range  type="range"  min="100"  max="1000" step="20" value="400"/>
+    <label range></label>
+    <button action="add-squares">add squares</button>
+    <button action="add-images">add images</button>
+    <h4>new Fold() with options:</h4>
+    <button action="default-options">not defined</button>
+    <button action="watch">{watch: true}</button>
+    <button action="target">{target: <b>col-2</b>}</button>
+    <button action="watch-target">{watch: true, target: <b>col-2</b>}</button>
+    <button action="collect" style="margin-top: 25px">.collect()</button>
+    <button action="kill">.kill()</button>
+  </div>
+
+  <div class="col col-1">
+    <div class="fake"></div>
+    <script type="text/javascript" fold="offset(250)"></script>
+  </div>
+  <div class="col col-2">
+    <div class="fake"></div>
+  </div>
+  <div class="col col-3">
+    <div class="fake"></div>
+  </div>
+
+  <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
