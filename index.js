@@ -25,15 +25,17 @@ function FoldNotifier(cb, opts) {
   this.check = this.check.bind(this)
   this.viewport = new Viewport()
   this.viewport.update.add(this.check)
-  this.collect()
 }
 
 FoldNotifier.prototype.add = function(arr) {
   if (this.viewport == null) return
+  var data
   for (var i = 0; i < arr.length; i++) {
+    data = getAttributes(arr[i], this.opts.attribute)
+    if (typeof data.offset != 'number') data.offset = this.opts.offset
     this.arr.push({
       el:   arr[i],
-      data: getAttributes(arr[i], this.opts.attribute)
+      data: data
     })
   }
   this.viewport.immediate()
@@ -43,17 +45,20 @@ FoldNotifier.prototype.collect = function() {
   if (this.viewport == null) return
   var list = this.opts.target.querySelectorAll('[' + this.opts.attribute + ']:not([' + this.opts.attribute + '-done])')
   this.arr = []
-  var el
+  var el, data
   for (var i = 0, n = list.length; i < n; i++) {
     el = list.item(i)
     if (el.nodeType == 1 && el.getClientRects().length > 0) {
+      data = getAttributes(el, this.opts.attribute)
+      if (typeof data.offset != 'number') data.offset = this.opts.offset
       this.arr.push({
         el:   el,
-        data: getAttributes(el, this.opts.attribute)
+        data: data
       })
     }
   }
   this.viewport.immediate()
+  return this.arr.length
 }
 
 FoldNotifier.prototype.check = function(data) {

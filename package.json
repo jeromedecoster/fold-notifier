@@ -1,6 +1,6 @@
 {
   "name": "fold-notifier",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Deal with the dom elements who enter the viewport",
   "repository": "jeromedecoster/fold-notifier",
   "main": "index.js",

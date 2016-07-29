@@ -43,6 +43,7 @@ function update(el, data) {
 }
 
 var fold = new Fold(update, {offset: -25})
+fold.collect()
 ```
 
 ## Example 2
@@ -68,6 +69,7 @@ function update(el, data) {
 }
 
 var fold = new Fold(update, {offset: 250, attribute:'lazy'})
+fold.collect()
 ```
 
 ## API
@@ -93,6 +95,8 @@ The callback `cb` receive 2 arguments
 | **el** | the dom element entering the viewport |
 | **data** | a **Plain Object** with serialized attribute values |
 
+You must call `add` or `collect` to start
+
 #### add(arr)
 
 Add new elements manually
@@ -112,6 +116,8 @@ Elements already *"done"* are ignored
 It reset the internal data storage. Every element not *"done"* are tested / imported again
 
 Safer than the [add](#addarr) method, but slower
+
+Return the count of watched elements
 
 ```html
 <!-- .one and .two are ignored -->

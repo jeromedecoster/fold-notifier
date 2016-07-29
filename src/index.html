@@ -11,7 +11,7 @@
   <div class="card">
     <div class="flex offset">
       <span>offset:</span>
-      <input offset type="number" min="-200" max="200"  step="100" value="000"/>
+      <input offset type="number" min="-200" max="200"  step="100" value="250"/>
     </div>
     <div class="flex range">
       <span>range:</span>
@@ -23,6 +23,7 @@
     <input  add type="checkbox" name="add" id="add"/><label add for="add">.add()</label>
     <h4>new Fold() with options:</h4>
     <button action="default-options">not defined</button>
+    <button action="offset">{offset: <b>offset</b>}</button>
     <button action="target">{target: <b>col-2</b>}</button>
     <button action="collect" style="margin-top: 25px">.collect()</button>
     <button action="kill">.kill()</button>

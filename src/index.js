@@ -63,7 +63,12 @@ function onclick(evt) {
       img.onload = function() { console.log('loaded:', time(), this.src.substr(this.src.lastIndexOf('/')+1))}
       img.width  = 350
       img.height = i
-      img.setAttribute('fold', `offset(${offset}) src(img/${color}-${i}.png)`)
+      if (Math.random() < .5) {
+        var off = -Math.floor(Math.random() * offset)
+        img.setAttribute('fold', `offset(${off}) src(img/${color}-${i}.png)`)
+      } else {
+        img.setAttribute('fold', `src(img/${color}-${i}.png)`)
+      }
       col3.appendChild(img)
       add.push(img)
     }
@@ -72,6 +77,9 @@ function onclick(evt) {
     }
   } else if (action === 'default-options') {
     fold = new Fold(cb)
+  } else if (action === 'offset') {
+    console.log('offset')
+    fold = new Fold(cb, {offset: offset})
   } else if (action === 'target') {
     console.log('target')
     fold = new Fold(cb, {target: col2})
