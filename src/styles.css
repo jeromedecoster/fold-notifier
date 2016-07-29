@@ -4,6 +4,7 @@ body,html {
 }
 
 .card {
+  font-family: arial;
   font-size: 15px;
   z-index: 1;
   position: fixed;
@@ -14,11 +15,22 @@ body,html {
   background-color: #eee;
 }
 
-.card label {
-  position: absolute;
+.flex {
+  display: flex;
+  position: relative;
+  font-size: 14px;
+}
+.offset span {
+  margin: 11px 10px 0 0;
+}
+.range span {
+  margin: 2px 10px 0 0;
+}
+
+.flex label {
+  position: relative;
   font-family: monospace;
   font-size: 17px;
-  margin-top: -1px;
   margin-left: 5px;
 }
 
@@ -29,13 +41,22 @@ input[type=number] {
   width: 185px;
   margin-bottom: 10px;
 }
+input[range] {
+  width: 80px;
+}
+input[add] {
+  margin-top: 10px;
+}
+label[add] {
+  font-size: 13px;
+  margin-left: 4px;
+}
 
 h4 {
   margin: 25px 0 0 0;
-  font-weight: 600;
 }
 
-.card div, span {
+.card div, span, label {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -49,6 +70,9 @@ button {
   margin-top: 8px;
   width: 99%;
   text-align: left;
+}
+button[action='add-squares'] {
+  margin-top: 20px;
 }
 
 .col {

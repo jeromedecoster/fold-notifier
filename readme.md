@@ -1,6 +1,6 @@
 # fold-notifier
 
-> Deal the dom elements who enter the viewport
+> Deal with the dom elements who enter the viewport
 
 ## Install
 
@@ -73,6 +73,7 @@ var fold = new Fold(update, {offset: 250, attribute:'lazy'})
 ## API
 
 * [constructor](#constructorcb-opts)
+* [add](#addarr)
 * [collect](#collect)
 * [kill](#kill)
 
@@ -84,7 +85,6 @@ var fold = new Fold(update, {offset: 250, attribute:'lazy'})
 | **opts.attribute** | optional targeted attribute, default to `fold` |
 | **opts.offset** | optional offset, default to `0` |
 | **opts.target** | optional targeted container, default to `document.body` |
-| **opts.watch** | if `true`, auto `collect()` with **MutationObserver**, default to `false` |
 
 The callback `cb` receive 2 arguments
 
@@ -93,17 +93,25 @@ The callback `cb` receive 2 arguments
 | **el** | the dom element entering the viewport |
 | **data** | a **Plain Object** with serialized attribute values |
 
+#### add(arr)
+
+Add new elements manually
+
+Nothing is tested, make sure that the array contains valid node elements with the correct `opts.attribute`
+
+The elements are directly added in the previous internal data storage
+
 #### collect()
 
 Collect new elements where `opts.attribute` is found
 
 Use it when interesting new nodes are appended to the dom
 
-Elements already 'done' are ignored
+Elements already *"done"* are ignored
 
-Not needed if `opts.watch` is setted to `true`
+It reset the internal data storage. Every element not *"done"* are tested / imported again
 
-Using `collect` is recommended because far more optimized than the option `{watch:true}`
+Safer than the [add](#addarr) method, but slower
 
 ```html
 <!-- .one and .two are ignored -->

@@ -1,7 +1,7 @@
 {
   "name": "fold-notifier",
-  "version": "0.1.0",
-  "description": "Deal the dom elements who enter the viewport",
+  "version": "0.2.0",
+  "description": "Deal with the dom elements who enter the viewport",
   "repository": "jeromedecoster/fold-notifier",
   "main": "index.js",
   "files": [
@@ -22,7 +22,7 @@
   "license": "MIT",
   "scripts": {
     "start": "budo src/index.js:bundle.js --dir src --host localhost --port 3000 --no-debug --open",
-    "dev": "budo src/index.js:bundle.js --dir src  --port 3000 --no-debug --live",
+    "dev": "budo src/index.js:bundle.js --dir src --port 3000 --no-debug --live",
     "collect": "node src/collect",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -31,9 +31,11 @@
     "budo": "^8.3.0"
   },
   "dependencies": {
-    "is-funcs": "^0.3.2",
-    "object-funcs": "^0.1.1",
-    "raf-funcs": "^0.3.0",
-    "scroll-resize": "^0.2.1"
+    "dom-funcs": "^0.1.0",
+    "is-funcs": "^0.5.1",
+    "object-funcs": "^0.4.0",
+    "set-funcs": "^0.1.1",
+    "to-funcs": "^0.3.0",
+    "viewport-update": "^0.1.0"
   }
 }
