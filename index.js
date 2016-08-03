@@ -3,6 +3,7 @@ const setBoolean = require('set-funcs/set-boolean')
 const setNumber = require('set-funcs/set-number')
 const setString = require('set-funcs/set-string')
 const defined = require('object-funcs/defined')
+const flatten = require('array-funcs/flatten')
 const isString = require('is-funcs/is-string')
 const toNumber = require('to-funcs/to-number')
 const Viewport = require('viewport-update')
@@ -27,16 +28,19 @@ function FoldNotifier(cb, opts) {
   this.viewport.update.add(this.check)
 }
 
-FoldNotifier.prototype.add = function(arr) {
+FoldNotifier.prototype.add = function() {
   if (this.viewport == null) return
+  var args = flatten(arguments)
   var data
-  for (var i = 0; i < arr.length; i++) {
-    data = getAttributes(arr[i], this.opts.attribute)
-    if (typeof data.offset != 'number') data.offset = this.opts.offset
-    this.arr.push({
-      el:   arr[i],
-      data: data
-    })
+  for (var i = 0, n = args.length; i < n; i++) {
+    if (isNode(args[i], true)) {
+      data = getAttributes(args[i], this.opts.attribute)
+      if (typeof data.offset != 'number') data.offset = this.opts.offset
+      this.arr.push({
+        el:   args[i],
+        data: data
+      })
+    }
   }
   this.viewport.immediate()
 }
@@ -48,7 +52,7 @@ FoldNotifier.prototype.collect = function() {
   var el, data
   for (var i = 0, n = list.length; i < n; i++) {
     el = list.item(i)
-    if (el.nodeType == 1 && el.getClientRects().length > 0) {
+    if (isNode(el, true)) {
       data = getAttributes(el, this.opts.attribute)
       if (typeof data.offset != 'number') data.offset = this.opts.offset
       this.arr.push({

@@ -75,7 +75,7 @@ fold.collect()
 ## API
 
 * [constructor](#constructorcb-opts)
-* [add](#addarr)
+* [add](#addarg-arg-)
 * [collect](#collect)
 * [kill](#kill)
 
@@ -97,13 +97,32 @@ The callback `cb` receive 2 arguments
 
 You must call `add` or `collect` to start
 
-#### add(arr)
+#### add(arg, [arg], [...])
 
 Add new elements manually
 
-Nothing is tested, make sure that the array contains valid node elements with the correct `opts.attribute`
+`arg` can be:
 
-The elements are directly added in the previous internal data storage
+* a **Html Element**
+* a **NodeList**
+* a flat **Array** or an **Array** of nested `arg`
+
+Make sure that the array contains valid node elements with the correct `opts.attribute`
+
+The elements are directly added in the previous internal data storage, faster than the [collect](#collect) method
+
+```js
+const Fold = require('fold-notifier')
+
+var fold = new Fold(/* ... */)
+
+var ela = document.querySelector('p.a')
+var elb = document.querySelector('p.b')
+var elc = document.querySelector('p.c')
+var lst = document.querySelectorAll('div')
+
+fold.add(ela, [elb, elc], lst)
+```
 
 #### collect()
 
@@ -115,7 +134,9 @@ Elements already *"done"* are ignored
 
 It reset the internal data storage. Every element not *"done"* are tested / imported again
 
-Safer than the [add](#addarr) method, but slower
+Safer than the [add](#addarg-arg-) method with the `opts.attribute` test, but slower
+
+Return the count of watched elements
 
 Return the count of watched elements
 

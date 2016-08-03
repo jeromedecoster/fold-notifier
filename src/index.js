@@ -73,10 +73,12 @@ function onclick(evt) {
       add.push(img)
     }
     if (fold && checked) {
-      fold.add(add)
+      var un = add.shift()
+      fold.add(add, un)
     }
   } else if (action === 'default-options') {
     fold = new Fold(cb)
+    console.log('default-options')
   } else if (action === 'offset') {
     console.log('offset')
     fold = new Fold(cb, {offset: offset})
@@ -85,7 +87,15 @@ function onclick(evt) {
     fold = new Fold(cb, {target: col2})
   } else if (action === 'collect') {
     console.log('collect')
-    if (fold) fold.collect()
+    // if (fold) fold.collect()
+    // test
+    var qsa = document.querySelectorAll('[fold]')
+    var ttt = [qsa.item(0), qsa.item(1), qsa.item(2)]
+    // console.log('qsa:', qsa)
+    // console.log('ttt:', ttt)
+    // console.log('3:', qsa.item(3))
+    fold.add(ttt, qsa.item(3), qsa)
+
   } else if (action === 'kill') {
     if (fold) fold.kill()
   }
