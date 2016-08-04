@@ -29,7 +29,7 @@ function FoldNotifier(cb, opts) {
 }
 
 FoldNotifier.prototype.add = function() {
-  if (this.viewport == null) return
+  if (this.arr == null) return
   var args = flatten(arguments)
   var data
   for (var i = 0, n = args.length; i < n; i++) {
@@ -46,7 +46,7 @@ FoldNotifier.prototype.add = function() {
 }
 
 FoldNotifier.prototype.collect = function() {
-  if (this.viewport == null) return
+  if (this.arr == null) return
   var list = this.opts.target.querySelectorAll('[' + this.opts.attribute + ']:not([' + this.opts.attribute + '-done])')
   this.arr = []
   var el, data
@@ -66,6 +66,7 @@ FoldNotifier.prototype.collect = function() {
 }
 
 FoldNotifier.prototype.check = function(data) {
+  if (this.arr == null) return
   var obj, rec
   var n = this.arr.length
   for (var i = 0; i < n; i++) {
@@ -73,9 +74,9 @@ FoldNotifier.prototype.check = function(data) {
     if (obj == null) continue
     rec = obj.el.getBoundingClientRect()
     if (rec.top <= window.innerHeight + obj.data.offset) {
+      this.arr[i] = null
       obj.el.setAttribute(this.opts.attribute + '-done', '')
       this.cb(obj.el, obj.data)
-      this.arr[i] = null
     }
   }
 }

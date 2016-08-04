@@ -10,68 +10,6 @@ npm i fold-notifier
 
 Package [on npm](https://www.npmjs.com/package/fold-notifier)
 
-## Example 1
-
-Two div will be animated when they enter the viewport
-
-```css
-.rect {
-  transform: translateY(80px) translateZ(0px);
-  transition: all 3s cubic-bezier(.19, 1, .22, 1);
-}
-
-/* animation starts when the attribute `fold-done` is setted */
-.rect[fold-done] {
-  transform: translateY(0px);
-}
-```
-
-```html
-<div class='rect one' fold></div>
-<div class='rect two' fold='delay(1.3)'></div>
-```
-
-```js
-const Fold = require('fold-notifier')
-
-// when update is invoked, the attribute `fold-done` was just setted to `el`
-function update(el, data) {
-  // `el` with class `.two` receive serialized data {offset:-25, delay:-1.3}
-  if (data.delay != null) {
-    el.style.transitionDelay = data.delay + 's'
-  }
-}
-
-var fold = new Fold(update, {offset: -25})
-fold.collect()
-```
-
-## Example 2
-
-Images are lazyloaded when they are about to enter the viewport
-
-```html
-<!-- b.gif is the famous 1x1 transparent pixel image -->
-<img class='one' src='b.gif' lazy='src(image1.jpg)'/>
-<img class='two' src='b.gif' lazy='src(image2.jpg)'/>
-```
-
-```js
-const Fold = require('fold-notifier')
-
-// when update is invoked, the attribute `lazy-done` was just setted to `el`
-function update(el, data) {
-  // `el` with class `.one` receive serialized data {offset:250, src:'image1.jpg'}
-  // `el` with class `.two` receive {offset:250, src:'image2.jpg'}
-  if (data.src != null) {
-    el.src = data.src
-  }
-}
-
-var fold = new Fold(update, {offset: 250, attribute:'lazy'})
-fold.collect()
-```
-
 ## API
 
 * [constructor](#constructorcb-opts)
@@ -152,6 +90,68 @@ Return the count of watched elements
 #### kill()
 
 Stop and delete all internal stuffs. Nothing can be done after that
+
+## Example 1
+
+Two div will be animated when they enter the viewport
+
+```css
+.rect {
+  transform: translateY(80px) translateZ(0px);
+  transition: all 3s cubic-bezier(.19, 1, .22, 1);
+}
+
+/* animation starts when the attribute `fold-done` is setted */
+.rect[fold-done] {
+  transform: translateY(0px);
+}
+```
+
+```html
+<div class='rect one' fold></div>
+<div class='rect two' fold='delay(1.3)'></div>
+```
+
+```js
+const Fold = require('fold-notifier')
+
+// when update is invoked, the attribute `fold-done` was just setted to `el`
+function update(el, data) {
+  // `el` with class `.two` receive serialized data {offset:-25, delay:-1.3}
+  if (data.delay != null) {
+    el.style.transitionDelay = data.delay + 's'
+  }
+}
+
+var fold = new Fold(update, {offset: -25})
+fold.collect()
+```
+
+## Example 2
+
+Images are lazyloaded when they are about to enter the viewport
+
+```html
+<!-- b.gif is the famous 1x1 transparent pixel image -->
+<img class='one' src='b.gif' lazy='src(image1.jpg)'/>
+<img class='two' src='b.gif' lazy='src(image2.jpg)'/>
+```
+
+```js
+const Fold = require('fold-notifier')
+
+// when update is invoked, the attribute `lazy-done` was just setted to `el`
+function update(el, data) {
+  // `el` with class `.one` receive serialized data {offset:250, src:'image1.jpg'}
+  // `el` with class `.two` receive {offset:250, src:'image2.jpg'}
+  if (data.src != null) {
+    el.src = data.src
+  }
+}
+
+var fold = new Fold(update, {offset: 250, attribute:'lazy'})
+fold.collect()
+```
 
 ## License
 
