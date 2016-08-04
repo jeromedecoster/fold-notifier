@@ -82,8 +82,8 @@ FoldNotifier.prototype.check = function(data) {
 }
 
 FoldNotifier.prototype.kill = function() {
+  if (this.viewport) this.viewport.update.remove(this.check)
   if (this.arr) this.arr.length = 0
-  if (this.viewport) this.viewport.update.clear()
 
   delete this.viewport
   delete this.check
